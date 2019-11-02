@@ -1,0 +1,17 @@
+version: '2'
+services:
+  php:
+    build: .
+    volumes:
+      - ./:/usr/app
+  redis:
+    image: redis
+    command: ["sh", "-c", "exec redis-server"]
+  nginx:
+    image: nginx
+    depends_on: [php]
+    ports:
+      - 80:80
+    volumes:
+      - ./:/usr/app
+      - ./app.conf:/etc/nginx/conf.d/app.conf
