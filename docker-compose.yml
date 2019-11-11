@@ -4,6 +4,15 @@ services:
     build: .
     volumes:
       - ./:/usr/app
+    links:
+      - redis
+  php_bg:
+    build: .
+    volumes:
+      - ./:/usr/app
+    command: ["php", "test.php"]
+    links:
+      - redis
   redis:
     image: redis
     command: ["sh", "-c", "exec redis-server"]
